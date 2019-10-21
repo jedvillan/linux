@@ -7349,6 +7349,8 @@ static void kvm_sched_yield(struct kvm *kvm, unsigned long dest_id)
 		kvm_vcpu_yield_to(target);
 }
 
+#define ASSIGNMENT_1 0x283
+
 int kvm_emulate_hypercall(struct kvm_vcpu *vcpu)
 {
 	unsigned long nr, a0, a1, a2, a3, ret;
@@ -7399,6 +7401,9 @@ int kvm_emulate_hypercall(struct kvm_vcpu *vcpu)
 	case KVM_HC_SCHED_YIELD:
 		kvm_sched_yield(vcpu->kvm, a0);
 		ret = 0;
+		break;
+	case ASSIGNMENT_1:
+		ret = 0x0033383245504D43;
 		break;
 	default:
 		ret = -KVM_ENOSYS;
