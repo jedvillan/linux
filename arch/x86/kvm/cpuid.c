@@ -1046,7 +1046,26 @@ int kvm_emulate_cpuid(struct kvm_vcpu *vcpu)
 
 	eax = kvm_rax_read(vcpu);
 	ecx = kvm_rcx_read(vcpu);
-	kvm_cpuid(vcpu, &eax, &ebx, &ecx, &edx, true);
+	switch (eax)
+    {
+      case 0x4FFFFFFF:
+            eax = 0x00001111;
+            break;
+      case 0x4FFFFFFE:
+            ebx = 0x0000BBBB;
+            ecx = 0x0000CCCC;
+            break;
+      case 0x4FFFFFFD:
+            eax = 0x0000AAAA;
+            break;
+      case 0x4FFFFFFC:
+            ebx = 0x0000DDDD;
+            ecx = 0x0000FFFF;
+            break;
+      default:
+	        kvm_cpuid(vcpu, &eax, &ebx, &ecx, &edx, true);
+    }
+
 	kvm_rax_write(vcpu, eax);
 	kvm_rbx_write(vcpu, ebx);
 	kvm_rcx_write(vcpu, ecx);
