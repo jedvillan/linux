@@ -1039,6 +1039,7 @@ EXPORT_SYMBOL_GPL(kvm_cpuid);
 
 int kvm_emulate_cpuid(struct kvm_vcpu *vcpu)
 {
+    int total_exits;
 	u32 eax, ebx, ecx, edx;
 
 	if (cpuid_fault_enabled(vcpu) && !kvm_require_cpl(vcpu, 0))
@@ -1049,7 +1050,8 @@ int kvm_emulate_cpuid(struct kvm_vcpu *vcpu)
 	switch (eax)
     {
       case 0x4FFFFFFF:
-            eax = 0x00001111;
+            eax = total_exits;
+            #eax = 0x00001111;
             break;
       case 0x4FFFFFFE:
             ebx = 0x0000BBBB;
