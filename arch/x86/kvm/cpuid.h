@@ -7,7 +7,6 @@
 #include <asm/processor.h>
 
 extern int total_exits;
-
 int kvm_update_cpuid(struct kvm_vcpu *vcpu);
 bool kvm_mpx_supported(void);
 struct kvm_cpuid_entry2 *kvm_find_cpuid_entry(struct kvm_vcpu *vcpu,

@@ -1036,10 +1036,11 @@ bool kvm_cpuid(struct kvm_vcpu *vcpu, u32 *eax, u32 *ebx,
 	return found;
 }
 EXPORT_SYMBOL_GPL(kvm_cpuid);
-
+//extern int total_exits = 0;
+int total_exits = 0;
+EXPORT_SYMBOL(total_exits);
 int kvm_emulate_cpuid(struct kvm_vcpu *vcpu)
 {
-    int total_exits;
 	u32 eax, ebx, ecx, edx;
 
 	if (cpuid_fault_enabled(vcpu) && !kvm_require_cpl(vcpu, 0))
@@ -1051,7 +1052,7 @@ int kvm_emulate_cpuid(struct kvm_vcpu *vcpu)
     {
       case 0x4FFFFFFF:
             eax = total_exits;
-            #eax = 0x00001111;
+            //eax = 0x00001111;
             break;
       case 0x4FFFFFFE:
             ebx = 0x0000BBBB;
