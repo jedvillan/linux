@@ -5867,6 +5867,7 @@ static int vmx_handle_exit(struct kvm_vcpu *vcpu)
 
 	trace_kvm_exit(exit_reason, vcpu, KVM_ISA_VMX);
 
+	indv_exit_count[(int) exit_reason]++;
     	total_exits++;
 
 	/*
