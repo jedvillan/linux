@@ -8,9 +8,12 @@
 
 extern u64 total_exits;
 extern u64 total_time_spent;
+<<<<<<< HEAD
 extern u32 indv_exit_count[65];
 extern u64 indv_exit_time_spent[65];
 
+=======
+>>>>>>> bc065f1c6d8e7bbeb5ddfcbb85d79d33a3c068b7
 int kvm_update_cpuid(struct kvm_vcpu *vcpu);
 bool kvm_mpx_supported(void);
 struct kvm_cpuid_entry2 *kvm_find_cpuid_entry(struct kvm_vcpu *vcpu,

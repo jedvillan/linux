@@ -1036,6 +1036,7 @@ bool kvm_cpuid(struct kvm_vcpu *vcpu, u32 *eax, u32 *ebx,
 	return found;
 }
 EXPORT_SYMBOL_GPL(kvm_cpuid);
+<<<<<<< HEAD
 
 u64 total_exits = 0;
 EXPORT_SYMBOL(total_exits);
@@ -1049,6 +1050,14 @@ EXPORT_SYMBOL(indv_exit_count);
 u64 indv_exit_time_spent[65];
 EXPORT_SYMBOL(indv_exit_time_spent);
 
+=======
+//extern int total_exits = 0;
+u64 total_exits = 0;
+u64 total_time_spent = 0;
+
+EXPORT_SYMBOL(total_exits);
+EXPORT_SYMBOL(total_time_spent);
+>>>>>>> bc065f1c6d8e7bbeb5ddfcbb85d79d33a3c068b7
 int kvm_emulate_cpuid(struct kvm_vcpu *vcpu)
 {
 	u32 eax, ebx, ecx, edx;
@@ -1064,8 +1073,13 @@ int kvm_emulate_cpuid(struct kvm_vcpu *vcpu)
             eax = (u32) total_exits;
             break;
       case 0x4FFFFFFE:
+<<<<<<< HEAD
             ebx = (u32) (total_time_spent >> 32);
             ecx = (u32) (total_time_spent & 0xFFFFFFFFuLL); 
+=======
+            ecx = (u32) (total_time_spent &0xFFFFFFFFuLL);
+            ebx = (u32) (total_time_spent >> 32);
+>>>>>>> bc065f1c6d8e7bbeb5ddfcbb85d79d33a3c068b7
             break;
       case 0x4FFFFFFD:
             eax = (u32) indv_exit_count[ecx];
