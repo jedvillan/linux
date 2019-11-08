@@ -5861,24 +5861,15 @@ void dump_vmcs(void)
  */
 static int vmx_handle_exit(struct kvm_vcpu *vcpu)
 {
-    unsigned long long start_t = rdtsc();
-    unsigned long long end_t;
 	struct vcpu_vmx *vmx = to_vmx(vcpu);
 	u32 exit_reason = vmx->exit_reason;
 	u32 vectoring_info = vmx->idt_vectoring_info;
 
 	trace_kvm_exit(exit_reason, vcpu, KVM_ISA_VMX);
-<<<<<<< HEAD
 
 	indv_exit_count[(int) exit_reason]++;
     	total_exits++;
 
-=======
-    
-    total_exits++;
-    end_t = rdtsc();
-    total_time_spent += (u64) (end_t - start_t);
->>>>>>> bc065f1c6d8e7bbeb5ddfcbb85d79d33a3c068b7
 	/*
 	 * Flush logged GPAs PML buffer, this will make dirty_bitmap more
 	 * updated. Another good is, in kvm_vm_ioctl_get_dirty_log, before
@@ -5901,13 +5892,6 @@ static int vmx_handle_exit(struct kvm_vcpu *vcpu)
 		vcpu->run->exit_reason = KVM_EXIT_FAIL_ENTRY;
 		vcpu->run->fail_entry.hardware_entry_failure_reason
 			= exit_reason;
-<<<<<<< HEAD
-
-=======
-  
-        end_t = rdtsc();
-        total_time_spent += (u64) (end_t - start_t);
->>>>>>> bc065f1c6d8e7bbeb5ddfcbb85d79d33a3c068b7
 		return 0;
 	}
 
@@ -5916,9 +5900,6 @@ static int vmx_handle_exit(struct kvm_vcpu *vcpu)
 		vcpu->run->exit_reason = KVM_EXIT_FAIL_ENTRY;
 		vcpu->run->fail_entry.hardware_entry_failure_reason
 			= vmcs_read32(VM_INSTRUCTION_ERROR);
-
-        end_t = rdtsc();
-        total_time_spent += (u64) (end_t - start_t);
 		return 0;
 	}
 
@@ -5946,8 +5927,6 @@ static int vmx_handle_exit(struct kvm_vcpu *vcpu)
 				vmcs_read64(GUEST_PHYSICAL_ADDRESS);
 		}
 
-		end_t = rdtsc();
-        total_time_spent += (u64) (end_t - start_t);
 		return 0;
 	}
 
@@ -5983,12 +5962,8 @@ static int vmx_handle_exit(struct kvm_vcpu *vcpu)
 		vcpu->run->internal.ndata = 1;
 		vcpu->run->internal.data[0] = exit_reason;
 
-        end_t = rdtsc();
-        total_time_spent += (u64) (end_t - start_t);
 		return 0;
 	}
-    end_t = rdtsc();
-    total_time_spent += (u64) (end_t - start_t);
 }
 
 /*
