@@ -27,6 +27,7 @@
 #include <linux/slab.h>
 #include <linux/tboot.h>
 #include <linux/trace_events.h>
+#include <uapi/linux/time.h>
 
 #include <asm/apic.h>
 #include <asm/asm.h>
@@ -5866,7 +5867,7 @@ static int vmx_handle_exit(struct kvm_vcpu *vcpu)
 
 	trace_kvm_exit(exit_reason, vcpu, KVM_ISA_VMX);
 
-    total_exits++;
+    	total_exits++;
 
 	/*
 	 * Flush logged GPAs PML buffer, this will make dirty_bitmap more
@@ -5890,6 +5891,7 @@ static int vmx_handle_exit(struct kvm_vcpu *vcpu)
 		vcpu->run->exit_reason = KVM_EXIT_FAIL_ENTRY;
 		vcpu->run->fail_entry.hardware_entry_failure_reason
 			= exit_reason;
+
 		return 0;
 	}
 

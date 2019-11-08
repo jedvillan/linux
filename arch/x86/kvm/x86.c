@@ -7939,6 +7939,7 @@ EXPORT_SYMBOL_GPL(__kvm_request_immediate_exit);
 static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
 {
 	int r;
+	unsigned long long start_t, end_t;
 	bool req_int_win =
 		dm_request_for_irq_injection(vcpu) &&
 		kvm_cpu_accept_dm_intr(vcpu);
@@ -8228,7 +8229,13 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
 		kvm_lapic_sync_from_vapic(vcpu);
 
 	vcpu->arch.gpa_available = false;
+
+	start_t = rdtsc();
 	r = kvm_x86_ops->handle_exit(vcpu);
+	end_t = rdtsc();
+
+	total_time_spent += (u64) (end_t - start_t);
+
 	return r;
 
 cancel_injection:
