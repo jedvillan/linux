@@ -7940,7 +7940,7 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
 {
 	int r;
 	unsigned long long start_t, end_t;
-	int er; //exit_reason
+	u32 er; //exit_reason
 	bool req_int_win =
 		dm_request_for_irq_injection(vcpu) &&
 		kvm_cpu_accept_dm_intr(vcpu);
@@ -8231,7 +8231,9 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
 
 	vcpu->arch.gpa_available = false;
 
-	er = (int) vcpu->run->exit_reason;
+	er = vcpu->run->exit_reason;
+
+	e_reason = er;
 
 	start_t = rdtsc();
 	r = kvm_x86_ops->handle_exit(vcpu);

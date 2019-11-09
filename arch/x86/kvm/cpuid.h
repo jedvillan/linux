@@ -6,10 +6,11 @@
 #include <asm/cpu.h>
 #include <asm/processor.h>
 
+extern u32 e_reason;
 extern u64 total_exits;
 extern u64 total_time_spent;
-extern u32 indv_exit_count[65];
-extern u64 indv_exit_time_spent[65];
+extern u32 indv_exit_count[70];
+extern u64 indv_exit_time_spent[70];
 
 int kvm_update_cpuid(struct kvm_vcpu *vcpu);
 bool kvm_mpx_supported(void);
