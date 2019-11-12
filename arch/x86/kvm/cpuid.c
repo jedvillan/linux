@@ -1062,28 +1062,24 @@ int kvm_emulate_cpuid(struct kvm_vcpu *vcpu)
 	eax = kvm_rax_read(vcpu);
 	ecx = kvm_rcx_read(vcpu);
 	switch (eax)
-    {
-      case 0x4FFFFFFF:
-            eax = (u32) total_exits;
-	    edx = e_reason;
-            break;
-      case 0x4FFFFFFE:
-            ebx = (u32) (total_time_spent >> 32);
-            ecx = (u32) (total_time_spent & 0xFFFFFFFFuLL); 
-	    edx = e_reason;
-            break;
-      case 0x4FFFFFFD:
-            eax = (u32) indv_exit_count[ecx];
-	    edx = e_reason;
-            break;
-      case 0x4FFFFFFC:
-            ebx = (u32) (indv_exit_time_spent[ecx] >> 32);
-            ecx = (u32) (indv_exit_time_spent[ecx] & 0xFFFFFFFFuLL);
-	    edx = e_reason;
-            break;
-      default:
-	        kvm_cpuid(vcpu, &eax, &ebx, &ecx, &edx, true);
-    }
+    	{
+    	  	case 0x4FFFFFFF:
+    	  	      eax = (u32) total_exits;
+    	  	      break;
+    	  	case 0x4FFFFFFE:
+    	  	      ebx = (u32) (total_time_spent >> 32);
+    	  	      ecx = (u32) (total_time_spent & 0xFFFFFFFFuLL); 
+    	  	      break;
+    	  	case 0x4FFFFFFD:
+    	  	      eax = (u32) indv_exit_count[ecx];
+    	  	      break;
+    	  	case 0x4FFFFFFC:
+    	  	      ebx = (u32) (indv_exit_time_spent[ecx] >> 32);
+    	  	      ecx = (u32) (indv_exit_time_spent[ecx] & 0xFFFFFFFFuLL);
+    	  	      break;
+    	  	default:
+    	  	          kvm_cpuid(vcpu, &eax, &ebx, &ecx, &edx, true);
+    	}
 
 	kvm_rax_write(vcpu, eax);
 	kvm_rbx_write(vcpu, ebx);
